@@ -5,7 +5,7 @@
 2.暴露接口与数据交互
 3.注册与导出React Native原生模块
 
-原生模块文件结构
+原生模块文件结构(android)
 .
 ├── MainActivity.java 					
 ├── MainApplication.java 				
@@ -16,3 +16,5 @@
     ├── ImageCropReactPackage.java 		该类继承ReactPackage。所有要提供给JS调用的方法必须通过该注册模块进行注册才能够使用。
     ├── IntentUtils.java 				跳转意图工具类
     └── Utils.java 						工具类
+
+在实现并注册完原生模块之后，需要为原生模块导出一个js模块，使得RN组件中可以使用它（ImageCrop.js）
