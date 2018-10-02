@@ -55,7 +55,7 @@ public class CropImpl implements Crop, ActivityEventListener {
         if (requestCode == RC_PICK){//如果是从相册读取图片
             //读取成功
             if(resultCode == Activity.RESULT_OK && data != null){
-                outputUri = Uri.fromFile();
+                outputUri= Uri.fromFile(Utils.getPhotoCacheDir(System.currentTimeMillis()+".jpg"));
                 onCrop(data.getData(), outputUri);
             }else{
                 pickPromise.reject(CODE_ERROR_PICK, "获取图片失败");
@@ -73,6 +73,6 @@ public class CropImpl implements Crop, ActivityEventListener {
     public void onNewIntent(Intent intent) {}
 
     public void onCrop(Uri targetUri, Uri outputUri){
-        this.activity.startActivityForResult(IntentUtils.);
+        this.activity.startActivityForResult(IntentUtils.getCropIntentWith(targetUri,outputUri,aspectX,aspectY),RC_CROP);
     }
 }
