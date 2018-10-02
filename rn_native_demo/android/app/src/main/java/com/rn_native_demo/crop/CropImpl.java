@@ -39,13 +39,7 @@ public class CropImpl implements Crop, ActivityEventListener {
         this.activity = activity;
     }
 
-    @Override
-    public void selectWithCrop(int aspectX, int aspectY, Promise promise) {
-        this.aspectX = aspectX;
-        this.aspectY = aspectY;
-        this.pickPromise = promise;
-        this.activity.startActivityForResult(IntentUtils.getPickIntentWithGallery(),RC_PICK);
-    }
+
 
     //ActivityEventListener
     //调用Activity.startActivityForResult会回调该方法
@@ -71,8 +65,14 @@ public class CropImpl implements Crop, ActivityEventListener {
 
     @Override
     public void onNewIntent(Intent intent) {}
-
-    public void onCrop(Uri targetUri, Uri outputUri){
+    @Override
+    public void selectWithCrop(int aspectX, int aspectY, Promise promise) {
+		this.pickPromise = promise;
+        this.aspectX = aspectX;
+        this.aspectY = aspectY;
+        this.activity.startActivityForResult(IntentUtils.getPickIntentWithGallery(),RC_PICK);
+    }
+    private void onCrop(Uri targetUri, Uri outputUri){
         this.activity.startActivityForResult(IntentUtils.getCropIntentWith(targetUri,outputUri,aspectX,aspectY),RC_CROP);
     }
 }
